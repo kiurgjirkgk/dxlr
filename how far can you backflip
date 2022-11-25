@@ -1,0 +1,48 @@
+local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/GreenDeno/Venyx-UI-Library/main/source.lua"))()
+local venyx = library.new("DXLR", 5013109572)
+
+local themes = {
+Background = Color3.fromRGB(24, 24, 24),
+Glow = Color3.fromRGB(0, 0, 0),
+Accent = Color3.fromRGB(10, 10, 10),
+LightContrast = Color3.fromRGB(20, 20, 20),
+DarkContrast = Color3.fromRGB(14, 14, 14),  
+TextColor = Color3.fromRGB(255, 255, 255)
+}
+
+local page = venyx:addPage("Main", 5012544693)
+local section1 = page:addSection("How Far Can You Backflip?")
+
+local heartbeat 
+section1:addToggle("Infinite coins and Studs", nil, function(value)
+if value == true then   
+         
+        venyx:Notify("Important", "When you backflip it will give infinite")
+  heartbeat = game:GetService("RunService").Heartbeat:Connect(function()
+   
+    local args = {
+            [1] = math.huge,
+            [2] = CFrame.new(19.4639, 2.985827684402466, 483.35467529296875) * CFrame.Angles(3.141592502593994, -1.5099580252808664e-07, 3.141592502593994)
+        }
+        
+        game:GetService("ReplicatedStorage").Packages._Index:FindFirstChild("sleitnick_knit@1.4.2").knit.Services.SpeedMultiplierService.RE.Reset:FireServer(unpack(args))
+   task.wait(0.1)
+    end)
+else
+    heartbeat:Disconnect() 
+end
+end)
+
+local heartbeat2
+section1:addToggle("Auto Rebirth", nil, function(value)
+if value == true then        
+        heartbeat2 = game:GetService("RunService").Heartbeat:Connect(function()    
+            game:GetService("ReplicatedStorage").Packages._Index["sleitnick_knit@1.4.2"].knit.Services.BuyService.RF.BuySM:InvokeServer()
+            task.wait(0.05)
+            game:GetService("ReplicatedStorage").Packages._Index["sleitnick_knit@1.4.2"].knit.Services.BuyService.RF.BuyRebirth:InvokeServer()
+    end)
+else
+    heartbeat2:Disconnect() 
+end
+end)
+venyx:SelectPage(venyx.pages[1], true)
